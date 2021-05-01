@@ -289,9 +289,10 @@ module.exports.formatting = (i, show_img=false) => {
   	const rof = Math.round((displayed_ammo /(number_of_salvos * shots_per_salvo)) * true_rof);
 		
   	// the dude that made the final data csv bungled the helo range for autocannons
-  	if (type == 'Autocannon' && Math.trunc(range_ground) > 1575) {
+		// previous fix messed up the SUP SPAAGs
+  	if (type == 'Autocannon' && Math.trunc(range_ground) > 1575 && i.Tab != "SUP") {
   		range_heli = range_ground - 175;
-  		} else if (type == 'Autocannon' && Math.trunc(range_ground) <= 1575) {
+  		} else if (type == 'Autocannon' && Math.trunc(range_ground) <= 1575 && i.Tab != "SUP") {
   	  		range_heli = range_ground;
 					}
 
