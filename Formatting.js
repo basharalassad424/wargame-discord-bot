@@ -239,7 +239,6 @@ module.exports.formatting = (i, show_img=false) => {
 		  embed.attachFiles(attachments);
 			embed.setThumbnail('attachment://'+ deck_id + '.png');
 		}
-		console.log(embed.image);
 
 	//loop through all weapons
   for (j=1; j<=11; j++)

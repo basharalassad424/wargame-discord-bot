@@ -10,6 +10,10 @@ const help = ('\n' +
 '**!armor <0 - 25 armor>** - Displays the damage resistance of an armor value towards ke and heat \n' + 
 '**!map <map>** - Displays a map, Example: !map mudfight \n'  +
 '**!vet** - Shows Vlern\'s table of accuracy with upvetting \n' +
+'**!decks** - gives a list of decks for tacticals \n' +
+'**!optics** - shows link to spreadsheet with optics and stealth data \n' +
+'**!crit** - shows link to spreadsheet with critical hit data \n' +
+'**!manual** - shows link to oficial wargame manual \n' +
 '**!userinvite** - Makes a 2 hour, 1 use invite for you to invite someone \n' +
 '**!keyvalues** - Values worth remembering  \n' +
 '**!armorytool** - A tool for viewing hidden unit stats \n' +

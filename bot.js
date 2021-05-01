@@ -19,6 +19,7 @@ const token = process.env.token;
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
+const decks_file = 'decks.txt'
 let status = "​";
 const csv = require('csv-parser');
 let color;
@@ -235,12 +236,25 @@ client.on('message', async message => {
       case 'rof':
         message.reply('Here is a link to the rate of fire spreadsheet: https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233');
         break;
+      case 'optics':
+        message.reply('here is the sheet with optics and stealth data: https://docs.google.com/spreadsheets/d/1AqCmqMCn7ITnfchU8KZqE7NNBl2eAN3WM1yLD_C328U');
+        break;
       case 'bling':
         message.reply('here is the bling guide: https://steamcommunity.com/sharedfiles/filedetails/?id=355698402');
+        break;
+      case 'manual':
+        message.reply('here is the eugen oficial game manual: http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147');
+        break;
+      case 'crit':
+        message.reply('here is the list of critical https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit');
         break;
       case 'maps':
         message.reply('\n\n **Mud fight** \n\n **Plunjing valley** \n\n **Paddy field** \n\n **Punchbowl** \n\n **Corner Hell** \n\n **Highway to seoul** \n\n **Nuclear winter** \n\n **Wonsan Harbor** \n\n **Death Row** \n\n **Jungle Law** \n\n **Cliff Hanger** \n\n **38th Parallel**');
         break;
+			case 'decks':
+				var array = fs.readFileSync(decks_file).toString().split("\n");
+				message.reply(array);
+				break;
     }
   }
 });
