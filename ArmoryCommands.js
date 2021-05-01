@@ -32,8 +32,32 @@ module.exports.unit = (args, message, limit, displaylimit) => {
   if (matchingUnits.length === 0) {
     message.reply('No units matched with the name ' + allArgs);
   }
-
-  if (matchingUnits.length > 1) {
+	if (matchingUnits.length === 1) {
+    i = matchingUnits[0];
+    const send = format.formatting(i, show_msg = true);
+		const filter = (reaction, user, member) => { //make a filter of only the reaction wastebasket made by the user
+		  return ['🗑'].includes(reaction.emoji.name) && user.id === message.author.id;
+		};
+		message.channel.send(send).then(m => {
+		  m.react('🗑'); //react with a wastebasket to the bots own post
+		  m.awaitReactions(filter, {
+		      max: 1,
+		      time: 30000,
+		      errors: ['Time'],
+		    }) //wait 30 seconds for reactions and throw an error if none are found after 15seconds
+		    .then(collected => {
+		      const reaction = collected.first();
+		      if (reaction.emoji.name === '🗑') { //if the reaction is wastebasket, delete the bot's message, and if the unit matching length is less than 2, delete the user's message
+		        m.delete().then(() => {
+		            message.delete(message).catch(err => {});
+		        });
+		      }
+		    }).catch(err => { //if there are no reactions after 15 seconds that match the filter, throw an error, on that error, clear all reactions
+		      m.reactions.removeAll().catch(error => console.error('Failed to clear reactions: ', error));
+		    });
+		});
+  }
+	else if (matchingUnits.length > 1) {
     message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits.length + ' units, please be more specific or use !list or !unitlist ');
     if (matchingUnits.length < displaylimit) {
       i = matchingUnits[0];
