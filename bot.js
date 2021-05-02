@@ -19,7 +19,8 @@ const token = process.env.token;
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
-const decks_file = 'decks.txt'
+const decks_file = 'Data/decks.txt';
+const bot_icon = 'Pictures/bot_icon.png';
 let status = "​";
 const csv = require('csv-parser');
 let color;
@@ -33,12 +34,8 @@ var stringSimilarity = require('string-similarity');
 
 client.once('ready', () => {
   console.log('Bot running in the index file.');
-  client.user.setPresence({
-    game: {
-      name: status,
-      type: 'WATCHING',
-    },
-  }); //sets the bot's status to the default status
+	client.user.setAvatar(bot_icon);
+  client.user.setActivity({type:'WATCHING', name:' the Armory'}); //sets the bot's status to the default status
 });
 
 String.prototype.replaceAll = function(search, replacement) {
@@ -229,8 +226,6 @@ client.on('message', async message => {
         break;
       case 'armorytool':
         message.reply('Here is a link to the armory tool: https://forums.eugensystems.com/viewtopic.php?t=59265');
-        break;
-      case 'replayfolder':
         message.reply('here is the directory for the replay folder: \n\n *Windows: C:\\Users%username%\\Saved Games\\EugenSystems\\WarGame3* \n\nLinux: ~/.config/EugenSystems/Wargame3/saves \n\n Mac: [Hard drive] > Users > [your account] > Library > Application Support > EugenSystems > Wargame3 > SavedGames');
         break;
       case 'rof':
