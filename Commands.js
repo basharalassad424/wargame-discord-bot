@@ -21,7 +21,7 @@ const help = ('\n' +
 '**!replayfolder** - Folder Where game replays are stored \n' + 
 '**!rof** - A Rate of Fire cheatsheet \n' +
 '**!bling** - How to get colors and tags in wargame \n' +
-'**!maps** - List of maps in the tactical servers \n');
+'**!maplist** - List of maps in the tactical servers \n');
 
 const adminhelp = ('List of admin commands: \n**!invite <duration in minutes> <uses>** - Creates an invite link, set duration to zero to make it infinite duration \n **!changelimit <number>** - Changes the limit of matching units to display fully \n **!changedisplaylimit <number>** - Changes the limit of units to be shown in a name list \n **!dynocommands** - Turns on / off the dyno commands (!unspec !rookie, etc)');
 

@@ -139,7 +139,9 @@ module.exports.formatting = (i, show_img=false) => {
 
   let category = ('**Logistics** | **Nationality**: ' + country_flag + ' | ' + proto);
 
-	let armor = '**Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop
+	let armor = '\n**Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop
+
+	let autonomy = '\n**Autonomy: **' + i.Autonomy; + ' seconds'
 
 	let movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth +  '\n'  + '**Air detection**: ' + i.OpticalStrengthAir + ' | **Ground optics**: ' + i.OpticalStrengthGround);
 
@@ -154,7 +156,7 @@ module.exports.formatting = (i, show_img=false) => {
     if (i.Training !== '') {
     	movement = (movement + '\n**Training**: ' + i.Training);
     }else {
-			movement = (movement + '\n' + armor);
+			movement = (movement + armor + autonomy);
 			}
     if (armorfront == 'none' && armorsides == 'none' && armorrear == 'none' && armortop == 'none') {
       movement = (movement + '\n**Armor**: Splash');
@@ -166,10 +168,10 @@ module.exports.formatting = (i, show_img=false) => {
 
   } else if (i.Tab === 'SUP') {
     category = ('**Support** | **Nationality**: ' + country_flag + ' | ' + proto);
-		movement = (movement + '\n' + armor);
+		movement = (movement + armor + autonomy);
   } else if (i.Tab === 'TNK') {
     category = ('**Tank** | **Nationality**: ' + country_flag + ' | ' + proto);
-		movement = (movement + '\n' + armor);
+		movement = (movement + armor + autonomy);
     if (i.Weapon1ShotsPerSalvo == i.Weapon1DisplayedAmmunition) {
       category = category + ' | **Autoloaded**';
 
@@ -180,14 +182,14 @@ module.exports.formatting = (i, show_img=false) => {
     if (i.Training !== '') {
     	movement = (movement + '\n**Training**: ' + i.Training);
     }else {
-			movement = (movement + '\n' + armor);
+			movement = (movement + armor + autonomy);
 			}
   } else if (i.Tab === 'VHC') {
     category = ('**Vehicle** | **Nationality**: ' + country_flag + ' | ' + proto);
-		movement = (movement + '\n' + armor);
+		movement = (movement + armor + autonomy);
   } else if (i.Tab === 'HEL') {
     category = ('**Helicopter** | **Nationality**: ' + country_flag + ' | ' + proto);
-		movement = (movement + '\n' + armor);
+		movement = (movement + armor + autonomy);
   } else if (i.Tab === 'PLA') {
 
     const airOptics = {
@@ -202,7 +204,7 @@ module.exports.formatting = (i, show_img=false) => {
 
     category = ('**Plane** | **Nationality**: ' + country_flag + ' | ' + proto);
     movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Air Detection**: ' + i.OpticalStrengthAir);
-		movement = (movement + '\n' + armor);
+		movement = (movement + armor + autonomy);
 
   } else if (i.Tab = 'NAV') {
     category = ('**Naval** | **Nationality**: ' + country_flag + ' | ' + proto);

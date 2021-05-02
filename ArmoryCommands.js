@@ -7,22 +7,55 @@ const fs = require('fs');
 module.exports.unit = (args, message, limit, displaylimit) => {
 
   var allArgs = '';
-  for (let i = 0; i < args.length; i++) { //adds up all arguements after !git or !get into one single string named allArgs
-    allArgs += args[i].toLowerCase() + ' ';
+  for (let i = 0; i < args.length; i++) { //adds up all arguements after command
+    allArgs += args[i] + ' ';
   }
-
   allArgs = allArgs.trim(); //strip any leading or trailing spaces
-
   if (allArgs === '') {
     message.reply('Command requires a parameter'); //if the user does !unitlist <space> or !unitlist, return and reply this.
     return;
-  }
+	}
+  const matchingUnits2 = units.filter((i, index) => { //make matchingUnits into a filter of units
+
+		    s1 = allArgs.replace(/[^\w]/g, '').toLowerCase();
+		    s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
+
+		    if (s2 == s1) { // check if unit includes allArgs
+					      return i;
+					    }
+	});
+
+	if (matchingUnits2[0]){
+    i = matchingUnits2[0];
+    const send = format.formatting(i, show_msg = true);
+		const filter = (reaction, user, member) => { //make a filter of only the reaction wastebasket made by the user
+		  return ['🗑'].includes(reaction.emoji.name) && user.id === message.author.id;
+		};
+		message.channel.send(send).then(m => {
+		  m.react('🗑'); //react with a wastebasket to the bots own post
+		  m.awaitReactions(filter, {
+		      max: 1,
+		      time: 30000,
+		      errors: ['Time'],
+		    }) //wait 30 seconds for reactions and throw an error if none are found after 15seconds
+		    .then(collected => {
+		      const reaction = collected.first();
+		      if (reaction.emoji.name === '🗑') { //if the reaction is wastebasket, delete the bot's message, and if the unit matching length is less than 2, delete the user's message
+		        m.delete().then(() => {
+		            message.delete(message).catch(err => {});
+		        });
+		      }
+		    }).catch(err => { //if there are no reactions after 15 seconds that match the filter, throw an error, on that error, clear all reactions
+		      m.reactions.removeAll().catch(error => console.error('Failed to clear reactions: ', error));
+		    });
+		});
+		return;
+	}
 
   const matchingUnits = units.filter((i, index) => { //make matchingUnits into a filter of units
 
     s1 = allArgs.replace(/[^\w]/g, '').toLowerCase();
     s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
-
 
     if (s2.match(s1)) { // check if unit includes allArgs
       return i;
@@ -346,8 +379,6 @@ module.exports.heattable = (args, message) => {
       message.channel.send(embed).catch(err => {
         console.log(err + 'Error on line 484 armoryCommands.js');
       });
-
-
 
 };
 //477 + 177 + 373 + 539 

@@ -248,7 +248,7 @@ client.on('message', async message => {
       case 'crit':
         message.reply('here is the list of critical https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit');
         break;
-      case 'maps':
+      case 'maplist':
         message.reply('\n\n **Mud fight** \n\n **Plunjing valley** \n\n **Paddy field** \n\n **Punchbowl** \n\n **Corner Hell** \n\n **Highway to seoul** \n\n **Nuclear winter** \n\n **Wonsan Harbor** \n\n **Death Row** \n\n **Jungle Law** \n\n **Cliff Hanger** \n\n **38th Parallel**');
         break;
 			case 'decks':
