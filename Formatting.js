@@ -141,7 +141,7 @@ module.exports.formatting = (i, show_img=false) => {
 
 	let armor = '\n**Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop
 
-	let autonomy = '\n**Autonomy: **' + i.Autonomy; + ' seconds'
+	let autonomy = '\n**Autonomy: **' + i.Autonomy + ' seconds';
 
 	let movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth +  '\n'  + '**Air detection**: ' + i.OpticalStrengthAir + ' | **Ground optics**: ' + i.OpticalStrengthGround);
 
