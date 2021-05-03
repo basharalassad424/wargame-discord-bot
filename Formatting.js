@@ -197,10 +197,26 @@ module.exports.formatting = (i, show_img = false) => {
 		embed.setThumbnail('attachment://' + deck_id + '.png');
 	}
 	//loop through all weapons
+	let weapon_repeat = {} ;
 	for(j = 1; j <= 11; j++) {
+		//check for repated naval guns
 		name = i['Weapon' + j + 'Name'];
-		tags = i['Weapon' + j + 'Tags'];
 		type = i['Weapon' + j + 'Type'];
+
+		let will_repeat = false
+		for(k=j+1; k<=11; k++){
+			if(i.Tab === 'NAV' && name === i['Weapon' + k + 'Name'] && type === i['Weapon' + k + 'Type']){
+				will_repeat = true; // weapon count +2 for the first repeat and +1 for the next ones
+				if(weapon_repeat[name]>0)
+					weapon_repeat[name] += 1;
+				else
+					weapon_repeat[name] = 2;
+			}
+		}
+		//if it repeats display only the last one
+		if(will_repeat)
+			continue;
+		tags = i['Weapon' + j + 'Tags'];
 		caliber = i['Weapon' + j + 'Caliber'];
 		displayed_ammo = i['Weapon' + j + 'DisplayedAmmunition'];
 		ap = i['Weapon' + j + 'AP'];
@@ -253,7 +269,10 @@ module.exports.formatting = (i, show_img = false) => {
 		let arty_types = ['Howitzer', 'Mortar', 'MLRS']
 		let automatic_gun_types = ['HMG', 'MMG', 'LMG', 'Assault Rifles', 'SAW', 'Autocannon', 'SMG', 'Grenade Launcher', 'Battle Rifle', 'Flamethrower', 'Rocket Launcher']
 		let weapon = '';
-		weapon += '**' + type + '**\n';
+		if(weapon_repeat[name]>0)
+			weapon += '**' + weapon_repeat[name] + 'x ' + type + '**\n';
+		else
+			weapon += '**' + type + '**\n';
 		weapon += '**Name: **' + name + '\n';
 		weapon += caliber + ' x' + displayed_ammo + '\n';
 		if(tags) {
@@ -277,7 +296,7 @@ module.exports.formatting = (i, show_img = false) => {
 		weapon += '**Accuracy:** ' + Math.round(hit_prob * 100) + '%' + '\n';
 		weapon += '**Stabilizer:** ' + Math.round(hit_prob_moving * 100) + '%' + '\n';
 		if(arty_types.includes(type)) {
-			weapon += '**Dispersion**: ' + Math.round(dispersion_at_max_range * 26) + '\n';
+			weapon += '**Dispersion**: ' + Math.round(dispersion_at_min_range * 26) + '\n';
 		}
 		weapon += '**AP Power:** ' + ap + '\n';
 		weapon += '**HE Power:** ' + he + '\n';
