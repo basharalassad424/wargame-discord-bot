@@ -287,6 +287,8 @@ module.exports.formatting = (i, show_img=false) => {
 		radius_splash_suppress = i['Weapon' + j + 'RadiusSplashSuppressDamage'];
 		rayon_pinned = i['Weapon' + j + 'RayonPinned'];
 
+		const salvo_duration = Math.round(time_between_shots*shots_per_salvo)
+		const salvo_he_sum = Math.round(he*shots_per_salvo)
   	const true_rof = Math.round(60 * shots_per_salvo / ((shots_per_salvo- 1) * time_between_shots - -time_between_salvos));
   	const rof = Math.round((displayed_ammo /(number_of_salvos * shots_per_salvo)) * true_rof);
 		
@@ -298,7 +300,8 @@ module.exports.formatting = (i, show_img=false) => {
   	  		range_heli = range_ground;
 					}
 
-
+		let arty_types = ['Howitzer', 'Mortar', 'MLRS']
+		let automatic_gun_types = ['HMG', 'MMG', 'LMG', 'Assault Rifles', 'SAW', 'Autocannon', 'SMG', 'Grenade Launcher', 'Battle Rifle', 'Flamethrower', 'Rocket Launcher']
 		let weapon = '';
 		weapon += '**' + type + '**\n';
 		weapon +=  '**Name: **'+ name + '\n';
@@ -323,19 +326,25 @@ module.exports.formatting = (i, show_img=false) => {
   	}
 		weapon += '**Accuracy:** ' + Math.round(hit_prob*100)	 + '%' + '\n';
 		weapon += '**Stabilizer:** ' + Math.round(hit_prob_moving*100) + '%' + '\n';
-		weapon += '**Dispersion:** ' + Math.round(dispersion_at_max_range) + '\n';
+  	if(arty_types.includes(type)) {
+  	  weapon += '**Dispersion**: ' + Math.round(dispersion_at_max_range*26)  + '\n';
+  	}
 		weapon += '**AP Power:** ' + ap + '\n';
 		weapon += '**HE Power:** ' + he + '\n';
-		let arty_types = ['Howitzer', 'Mortar', 'MLRS']
   	if(arty_types.includes(type)) {
   	  weapon += '**Damage Radius**: ' + Math.round(radius_splash_physical) + '\n';
   	  weapon += '**Supress Radius**: ' + Math.round(radius_splash_suppress)  + '\n';
   	}
 		weapon += '**Aim Time:** ' + aim_time + 's' + '\n';
-		weapon += '**ROF:** ' + rof + ' r/m' + '\n';
 		weapon += '**TrueROF:** ' + true_rof + ' r/m' + '\n';
-		weapon += '**Salvo:** ' + shots_per_salvo + ' Shots' + '\n';
-		weapon += '**Reloads:** \n' + time_between_shots + ' s/Shots, ' +  time_between_salvos +  's/Salvo' + '\n';
+  	if(automatic_gun_types.includes(type)) {
+			weapon += '**Salvo:** ' + shots_per_salvo + ' Shots' + '\n';
+  	  weapon += 'Duration: ' +  Math.round(salvo_duration) + ' seconds' + '\n' +'Salvo HE Sum: ' +salvo_he_sum  + '\n';
+  	}else{
+			weapon += '**Salvo:** ' + shots_per_salvo + ' Shots' + '\n';
+  	  weapon += 'Duration: ' +  Math.round(salvo_duration) + ' seconds' + '\n';
+		}
+		weapon += '**Reloads:** \n' + time_between_shots + 's/Shot, ' +  time_between_salvos +  's/Salvo' + '\n';
 		weapon += '**Supply Cost:** ' + supply_cost + '/Salvo' + '\n';
 
 		//

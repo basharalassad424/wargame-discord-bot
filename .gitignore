@@ -1,0 +1,6 @@
+# Ignore NodeJS Modules
+node_modules/
+# Ignore Package JSON
+package-lock.json
+# Ignore logs
+*.log

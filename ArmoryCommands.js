@@ -35,7 +35,7 @@ module.exports.unit = (args, message, limit, displaylimit) => {
 		  m.react('🗑'); //react with a wastebasket to the bots own post
 		  m.awaitReactions(filter, {
 		      max: 1,
-		      time: 30000,
+		      time: 60000,
 		      errors: ['Time'],
 		    }) //wait 30 seconds for reactions and throw an error if none are found after 15seconds
 		    .then(collected => {
@@ -75,7 +75,7 @@ module.exports.unit = (args, message, limit, displaylimit) => {
 		  m.react('🗑'); //react with a wastebasket to the bots own post
 		  m.awaitReactions(filter, {
 		      max: 1,
-		      time: 30000,
+		      time: 60000,
 		      errors: ['Time'],
 		    }) //wait 30 seconds for reactions and throw an error if none are found after 15seconds
 		    .then(collected => {
@@ -103,7 +103,7 @@ module.exports.unit = (args, message, limit, displaylimit) => {
 		      m.react('🗑'); //react with a wastebasket to the bots own post
 		      m.awaitReactions(filter, {
 		          max: 1,
-		          time: 30000,
+		          time: 60000,
 		          errors: ['Time'],
 		        }) //wait 30 seconds for reactions and throw an error if none are found after 15seconds
 		        .then(collected => {

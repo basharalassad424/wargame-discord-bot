@@ -218,33 +218,14 @@ client.on('message', async message => {
 
   if (commoncommands == true) {
     switch (commandName) {
-      case 'honguide':
-        message.reply('Here is the hon beginner guide: https://honhonhonhon.wordpress.com/how-to-get-started-with-wargame/');
-        break;
-      case 'keyvalues':
-        message.reply('Here is a link to the Key Values to remember: https://www.reddit.com/r/wargamebootcamp/comments/7oj7nx/list_of_key_values_to_keep_track_of_for_beginners/');
-        break;
-      case 'armorytool':
-        message.reply('Here is a link to the armory tool: https://forums.eugensystems.com/viewtopic.php?t=59265');
+			case 'links':
+				message.reply('\n' + 'Eugen oficial game manual: <http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147>' + '\n' + 'Spreadsheet with optics and stealth data: <https://docs.google.com/spreadsheets/d/1AqCmqMCn7ITnfchU8KZqE7NNBl2eAN3WM1yLD_C328U>' + '\n' + 'Rate of fire spreadsheet: <https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233>' + '\n' + 'List of critical <https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit>' + '\n' + 'Armory tool: <https://forums.eugensystems.com/viewtopic.php?t=59265>' + '\n' + 'Hon beginner guide: <https://honhonhonhon.wordpress.com/how-to-get-started-with-wargame/>' + '\n' + 'Key Values to remember: <https://www.reddit.com/r/wargamebootcamp/comments/7oj7nx/list_of_key_values_to_keep_track_of_for_beginners/>' + '\n' + 'Guide to put flags and specs in deck names: <https://steamcommunity.com/sharedfiles/filedetails/?id=355698402>' );
+				break;
+			case 'replayfolder':
         message.reply('here is the directory for the replay folder: \n\n *Windows: C:\\Users%username%\\Saved Games\\EugenSystems\\WarGame3* \n\nLinux: ~/.config/EugenSystems/Wargame3/saves \n\n Mac: [Hard drive] > Users > [your account] > Library > Application Support > EugenSystems > Wargame3 > SavedGames');
         break;
-      case 'rof':
-        message.reply('Here is a link to the rate of fire spreadsheet: https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233');
-        break;
-      case 'optics':
-        message.reply('here is the sheet with optics and stealth data: https://docs.google.com/spreadsheets/d/1AqCmqMCn7ITnfchU8KZqE7NNBl2eAN3WM1yLD_C328U');
-        break;
-      case 'bling':
-        message.reply('here is the bling guide: https://steamcommunity.com/sharedfiles/filedetails/?id=355698402');
-        break;
-      case 'manual':
-        message.reply('here is the eugen oficial game manual: http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147');
-        break;
-      case 'crit':
-        message.reply('here is the list of critical https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit');
-        break;
       case 'maplist':
-        message.reply('\n\n **Mud fight** \n\n **Plunjing valley** \n\n **Paddy field** \n\n **Punchbowl** \n\n **Corner Hell** \n\n **Highway to seoul** \n\n **Nuclear winter** \n\n **Wonsan Harbor** \n\n **Death Row** \n\n **Jungle Law** \n\n **Cliff Hanger** \n\n **38th Parallel**');
+        message.reply('\n Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
         break;
 			case 'decks':
 				var array = fs.readFileSync(decks_file).toString().split("\n");

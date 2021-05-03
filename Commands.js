@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fetch = require('node-fetch');
 const maps_folder = 'Pictures/Map\ Pictures'
 const maps = ['Mudfight', 'Wonsan_Harbor', 'Nuclear_Winter', 'Chosin_Reservoir', 'Corner_Hell', 'Highway_to_Seoul', 'Paddy_Field', 'Plunjing_Valley', 'Jungle_Law', '38th_Perpendicular', 'Cliff_Hanger','Death_Corridor']
 const help = ('\n' + 
@@ -9,19 +10,13 @@ const help = ('\n' +
 '**!heat <heat value>** - Displays a table of armor damage for that heat value \n' + 
 '**!armor <0 - 25 armor>** - Displays the damage resistance of an armor value towards ke and heat \n' + 
 '**!map <map>** - Displays a map, Example: !map mudfight \n'  +
-'**!vet** - Shows Vlern\'s table of accuracy with upvetting \n' +
+'**!maplist** - List of maps in the tactical servers \n'  +
 '**!decks** - gives a list of decks for tacticals \n' +
-'**!optics** - shows link to spreadsheet with optics and stealth data \n' +
-'**!crit** - shows link to spreadsheet with critical hit data \n' +
-'**!manual** - shows link to oficial wargame manual \n' +
+'**!vet** - Shows Vlern\'s table of accuracy with upvetting \n' +
+'**!links** - Shows useful links for wargame related posts and documents \n' +
 '**!userinvite** - Makes a 2 hour, 1 use invite for you to invite someone \n' +
-'**!keyvalues** - Values worth remembering  \n' +
-'**!armorytool** - A tool for viewing hidden unit stats \n' +
-'Dragging a replay file on to thi channel will show info about the match\n' +
 '**!replayfolder** - Folder Where game replays are stored \n' + 
-'**!rof** - A Rate of Fire cheatsheet \n' +
-'**!bling** - How to get colors and tags in wargame \n' +
-'**!maplist** - List of maps in the tactical servers \n');
+'Dragging a replay file on to this channel will show info about the match\n');
 
 const adminhelp = ('List of admin commands: \n**!invite <duration in minutes> <uses>** - Creates an invite link, set duration to zero to make it infinite duration \n **!changelimit <number>** - Changes the limit of matching units to display fully \n **!changedisplaylimit <number>** - Changes the limit of units to be shown in a name list \n **!dynocommands** - Turns on / off the dyno commands (!unspec !rookie, etc)');
 
@@ -105,7 +100,7 @@ module.exports.help = (args, message) => {
     m.react('🗑');
     m.awaitReactions(filter, {
         max: 1,
-        time: 5000,
+        time: 60000,
         errors: ['Time'],
       })
       .then(collected => {
@@ -223,17 +218,20 @@ module.exports.invite = (message, admin, args) => {
                '\n **Game Duration**: ' + (json.game.TimeLimit / 60 + 'm') +
                '\n **Income Rate**: ' + json.game.IncomeRate)
               .setColor('ORANGE');
-							users.forEach(user  => {
-								let team
-								if(user.PlayerAlliance === '0'){
-									team = 'blue';
-								}else	{
-									team = 'red';
-								}
-              	embed.addField(user.PlayerName, '**ID**: ' + user.PlayerUserId +
-								'\n **Level**: ' + user.PlayerLevel + 
-              	'\n **Deck**: ' + deck.decode(user.PlayerDeckContent) + 
-              	'\n **Team**: ' + (team), true);
+							let teams = ['BLUFOR', 'REDFOR'];
+							teams.forEach(team => {
+								embed.addField(team + ':','|');
+								users.forEach(user  => {
+									if((user.PlayerAlliance === '1' && team === 'REDFOR') || (user.PlayerAlliance === '0' && team === 'BLUFOR')){
+              			let player_string = '**ID**: ' + user.PlayerUserId +
+										'| **Level**: ' + user.PlayerLevel + 
+              			'| **Deck**: ' + deck.decode(user.PlayerDeckContent) + 
+              			'| **Code**: ' + user.PlayerDeckContent;
+										embed.addField(user.PlayerName, player_string);
+									}
+              	})
+								if(team === 'BLUFOR')
+									embed.addField('\u200b', '\u200b');
               })
   						const filter = (reaction, user, member) => {
   						  return ['🗑'].includes(reaction.emoji.name) && user.id === message.author.id;
