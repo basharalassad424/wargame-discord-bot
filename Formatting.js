@@ -21,6 +21,7 @@ module.exports.formatting = (i, show_img = false) => {
 	if(i.Name === '') {
 		return;
 	}
+	i.Weapon1Type = i.Weapon1Type.replaceAll('Assault Rifles', 'Assault Rifle');
 	i.Weapon2Type = i.Weapon2Type.replaceAll('LAW', 'AT');
 	i.Weapon3Type = i.Weapon3Type.replaceAll('LAW', 'AT');
 	// i.Name = i.Name.replaceAll('%', ' ');
@@ -112,16 +113,15 @@ module.exports.formatting = (i, show_img = false) => {
 	} else {
 		armortop = i.ArmorTop;
 	}
-	if(i.IsPrototype.toLowerCase() === 'false') {
-		proto = '**Not prototype**';
-	} else if(i.IsPrototype.toLowerCase() === 'true') {
-		proto = '**Prototype**';
-	}
+	if(i.IsPrototype.toLowerCase() === 'true') 
+		proto = '| **Prototype**';
+	else
+		proto = ''
 	//defaults
 	let title = ('**' + i.Name.toUpperCase() + ('%', ' ') + '**');
 	let availability = (rookieavail + trainedavail + hardenedavail + veteranavail + eliteavail);
 	let price = (i.Price);
-	let category = ('**Logistics** | **Nationality**: ' + country_flag + ' | ' + proto);
+	let category = ('**Logistics** | **Nationality**: ' + country_flag + proto);
 	let armor = '\n**Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop
 	let autonomy = '\n**Autonomy: **' + i.Autonomy + ' seconds';
 	let movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + '\n' + '**Air detection**: ' + i.OpticalStrengthAir + ' | **Ground optics**: ' + i.OpticalStrengthGround);
@@ -130,7 +130,7 @@ module.exports.formatting = (i, show_img = false) => {
 		if(i.SupplyCapacity === '') {
 			title = ('**' + i.Name.toUpperCase() + '**' + ' <:command:583070567301644290>');
 		} //if its a cv, give it the cv icon
-		category = ('**Logistics** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Logistics** | **Nationality:** ' + country_flag +  proto);
 		if(i.Training !== '') {
 			movement = (movement + '\n**Training**: ' + i.Training);
 		} else {
@@ -140,29 +140,29 @@ module.exports.formatting = (i, show_img = false) => {
 			movement = (movement + '\n**Armor**: Splash');
 		}
 	} else if(i.Tab === 'INF') {
-		category = ('**Infantry** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Infantry** | **Nationality**: ' + country_flag + proto);
 		movement = (movement + '\n**Training**: ' + i.Training);
 	} else if(i.Tab === 'SUP') {
-		category = ('**Support** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Support** | **Nationality**: ' + country_flag + proto);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab === 'TNK') {
-		category = ('**Tank** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Tank** | **Nationality**: ' + country_flag + proto);
 		movement = (movement + armor + autonomy);
 		if(i.Weapon1ShotsPerSalvo == i.Weapon1DisplayedAmmunition) {
 			category = category + ' | **Autoloaded**';
 		}
 	} else if(i.Tab === 'REC') {
-		category = ('**Recon** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Recon** | **Nationality**: ' + country_flag +  proto);
 		if(i.Training !== '') {
 			movement = (movement + '\n**Training**: ' + i.Training);
 		} else {
 			movement = (movement + armor + autonomy);
 		}
 	} else if(i.Tab === 'VHC') {
-		category = ('**Vehicle** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Vehicle** | **Nationality**: ' + country_flag + proto);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab === 'HEL') {
-		category = ('**Helicopter** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Helicopter** | **Nationality**: ' + country_flag + proto);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab === 'PLA') {
 		const airOptics = {
@@ -174,19 +174,19 @@ module.exports.formatting = (i, show_img = false) => {
 		if(airOptics.hasOwnProperty(i.OpticalStrengthAir)) {
 			i.OpticalStrengthAir = airOptics[i.OpticalStrengthAir];
 		}
-		category = ('**Plane** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Plane** | **Nationality**: ' + country_flag + proto);
 		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Air Detection**: ' + i.OpticalStrengthAir);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab = 'NAV') {
-		category = ('**Naval** | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Naval** | **Nationality**: ' + country_flag + proto);
 		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed / 18.5) + 'kt | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround + ' \n **Air Detection**: ' + i.OpticalStrengthAir + ' \n**CIWS**: ' + i.CIWS);
 		movement = (movement + '\n' + armor);
 	}
 	if(i.SupplyCapacity !== '') {
-		category = ('**Logistics** | **Supply capacity**: ' + i.SupplyCapacity + ' | **Nationality**: ' + country_flag + ' | ' + proto);
+		category = ('**Logistics** | **Supply capacity**: ' + i.SupplyCapacity + ' | **Nationality**: ' + country_flag + proto);
 	}
 	if(i.Amphibious === 'TRUE') {
-		category = category + (' | **Amphibious**: ');
+		category = category + (' **| Amphibious** ');
 	}
 	deck_id = side + i.DeckID
 	category = category + (' \n **Spec decks**: ' + i.Decks);
@@ -267,18 +267,14 @@ module.exports.formatting = (i, show_img = false) => {
 			range_heli = range_ground;
 		}
 		let arty_types = ['Howitzer', 'Mortar', 'MLRS']
-		let automatic_gun_types = ['HMG', 'MMG', 'LMG', 'Assault Rifles', 'SAW', 'Autocannon', 'SMG', 'Grenade Launcher', 'Battle Rifle', 'Flamethrower', 'Rocket Launcher']
+		let automatic_gun_types = ['HMG', 'MMG', 'LMG', 'Assault Rifle', 'SAW', 'Autocannon', 'SMG', 'Grenade Launcher', 'Battle Rifle', 'Flamethrower', 'Rocket Launcher']
 		let weapon = '';
-		if(weapon_repeat[name]>0)
-			weapon += '**' + weapon_repeat[name] + 'x ' + type + '**\n';
-		else
-			weapon += '**' + type + '**\n';
-		weapon += '**Name: **' + name + '\n';
+		weapon += name + '\n';
 		weapon += caliber + ' x' + displayed_ammo + '\n';
 		if(tags) {
 			weapon += '**' + tags.replace('IFC', '') + '**\n';
 		} else {
-			weapon += '\n';
+			weapon += '**|**\n';
 		}
 		weapon += '**Range**(min-max):' + '\n';
 		weapon += 'Ground: ' + range_ground_min + " - " + range_ground + '\n';
@@ -317,8 +313,10 @@ module.exports.formatting = (i, show_img = false) => {
 		weapon += '**Supply Cost:** ' + supply_cost + '/Salvo' + '\n';
 		//
 		//add fields for weapons only if the unit has the weapons
+		if(weapon_repeat[name]>0)
+			type =   weapon_repeat[name] + 'x ' + type + 's';
 		if(name !== '') {
-			embed.addField('**Weapon ' + j + '**:', weapon, true);
+			embed.addField('**' + type + '**:', weapon, true);
 		}
 	}
 	return embed;

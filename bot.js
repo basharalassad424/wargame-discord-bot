@@ -22,7 +22,7 @@ const csv = require('csv-parser');
 const results = [];
 let status = "​";
 let color;
-let displaylimit = '20';
+let displaylimit = '30';
 let limit = '3';
 let commoncommands = true;
 var heatdata = require('./Data/HeatKeData.json');
