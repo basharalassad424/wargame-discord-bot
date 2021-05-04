@@ -188,17 +188,17 @@ client.on('message', async message => {
 	if(commoncommands == true) {
 		switch(commandName) {
 			case 'links':
-				message.reply('\n' + 'Eugen oficial game manual: <http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147>' + '\n' + 'Spreadsheet with optics and stealth data: <https://docs.google.com/spreadsheets/d/1AqCmqMCn7ITnfchU8KZqE7NNBl2eAN3WM1yLD_C328U>' + '\n' + 'Rate of fire spreadsheet: <https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233>' + '\n' + 'List of critical hits: <https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit>' + '\n' + 'Armory tool: <https://forums.eugensystems.com/viewtopic.php?t=59265>' + '\n' + 'Hon beginner guide: <https://honhonhonhon.wordpress.com/how-to-get-started-with-wargame/>' + '\n' + 'Key Values to remember: <https://www.reddit.com/r/wargamebootcamp/comments/7oj7nx/list_of_key_values_to_keep_track_of_for_beginners/>' + '\n' + 'Guide to put flags and specs in deck names: <https://steamcommunity.com/sharedfiles/filedetails/?id=355698402>');
+				message.channel.send('\n' + 'Eugen oficial game manual: <http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147>' + '\n' + 'Spreadsheet with optics and stealth data: <https://docs.google.com/spreadsheets/d/1AqCmqMCn7ITnfchU8KZqE7NNBl2eAN3WM1yLD_C328U>' + '\n' + 'Rate of fire spreadsheet: <https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233>' + '\n' + 'List of critical hits: <https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit>' + '\n' + 'Armory tool: <https://forums.eugensystems.com/viewtopic.php?t=59265>' + '\n' + 'Hon beginner guide: <https://honhonhonhon.wordpress.com/how-to-get-started-with-wargame/>' + '\n' + 'Key Values to remember: <https://www.reddit.com/r/wargamebootcamp/comments/7oj7nx/list_of_key_values_to_keep_track_of_for_beginners/>' + '\n' + 'Guide to put flags and specs in deck names: <https://steamcommunity.com/sharedfiles/filedetails/?id=355698402>');
 				break;
 			case 'replayfolder':
-				message.reply('here is the directory for the replay folder: \n\n *Windows: C:\\Users%username%\\Saved Games\\EugenSystems\\WarGame3* \n\nLinux: ~/.config/EugenSystems/Wargame3/saves \n\n Mac: [Hard drive] > Users > [your account] > Library > Application Support > EugenSystems > Wargame3 > SavedGames');
+				message.channel.send('here is the directory for the replay folder: \n\n *Windows: C:\\Users%username%\\Saved Games\\EugenSystems\\WarGame3* \n\nLinux: ~/.config/EugenSystems/Wargame3/saves \n\n Mac: [Hard drive] > Users > [your account] > Library > Application Support > EugenSystems > Wargame3 > SavedGames');
 				break;
 			case 'maplist':
-				message.reply('\n Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
+				message.channel.send('\n Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
 				break;
 			case 'decks':
 				var array = fs.readFileSync(decks_file).toString().split("\n");
-				message.reply(array);
+				message.channel.send(array);
 				break;
 		}
 	}

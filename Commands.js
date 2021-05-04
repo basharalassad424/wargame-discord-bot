@@ -77,7 +77,7 @@ module.exports.help = (args, message) => {
 	const filter = (reaction, user, member) => {
 		return ['🗑'].includes(reaction.emoji.name) && user.id === message.author.id;
 	};
-	message.reply(help).then(m => {
+	message.channel.send(help).then(m => {
 		m.react('🗑');
 		m.awaitReactions(filter, {
 			max: 1,
