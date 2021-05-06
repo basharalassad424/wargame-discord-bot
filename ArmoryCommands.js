@@ -90,7 +90,6 @@ module.exports.unit = (args, message, limit, displaylimit) => {
 				});
 		});
 	} else if(matchingUnits.length > 1) {
-		message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits.length + ' units, please be more specific or use !list or !unitlist ');
 		if(matchingUnits.length < displaylimit) {
 			i = matchingUnits[0];
 			if(matchingUnits.length < 50) {

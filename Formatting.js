@@ -38,6 +38,7 @@ module.exports.formatting = (i, show_img = false) => {
 	let hardenedavail = ('|Hardened:**' + i.HardenedDeployableAmount + '**|   ');
 	let veteranavail = ('|Veteran:**' + i.VeteranDeployableAmount + '**|   ');
 	let eliteavail = ('|Elite:**' + i.EliteDeployableAmount + '**|   ');
+	const command_emoji = '<:command:839991090093621300>';
 	const country_flags = {
 		"Poland": ":flag_pl:",
 		'Czechoslavakia': ':flag_cz:',
@@ -121,16 +122,17 @@ module.exports.formatting = (i, show_img = false) => {
 	let title = ('**' + i.Name.toUpperCase() + ('%', ' ') + '**');
 	let availability = (rookieavail + trainedavail + hardenedavail + veteranavail + eliteavail);
 	let price = (i.Price);
-	let category = ('**Logistics** | **Nationality**: ' + country_flag + proto);
+	let year = ' | **Year**: ' + i.Year;
+	let category = (year + ' | **Nationality**: ' + country_flag + proto);
 	let armor = '\n**Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop
 	let autonomy = '\n**Autonomy: **' + i.Autonomy + ' seconds';
 	let movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + '\n' + '**Air detection**: ' + i.OpticalStrengthAir + ' | **Ground optics**: ' + i.OpticalStrengthGround);
 	//specialized formatting
 	if(i.Tab === 'LOG') { //logistics tab formatting
 		if(i.SupplyCapacity === '') {
-			title = ('**' + i.Name.toUpperCase() + '**' + ' <:command:583070567301644290>');
+			title = ('**' + i.Name.toUpperCase() + '**' + command_emoji);
 		} //if its a cv, give it the cv icon
-		category = ('**Logistics** | **Nationality:** ' + country_flag +  proto);
+		category = ('**Logistics** ' + year + ' | **Nationality**: ' + country_flag + proto);
 		if(i.Training !== '') {
 			movement = (movement + '\n**Training**: ' + i.Training);
 		} else {
@@ -140,29 +142,38 @@ module.exports.formatting = (i, show_img = false) => {
 			movement = (movement + '\n**Armor**: Splash');
 		}
 	} else if(i.Tab === 'INF') {
-		category = ('**Infantry** | **Nationality**: ' + country_flag + proto);
+		category = ('**Infantry**  ' + category);
 		movement = (movement + '\n**Training**: ' + i.Training);
 	} else if(i.Tab === 'SUP') {
-		category = ('**Support** | **Nationality**: ' + country_flag + proto);
+		category = ('**Support** ' + category);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab === 'TNK') {
-		category = ('**Tank** | **Nationality**: ' + country_flag + proto);
+		category = ('**Tank** ' + category);
 		movement = (movement + armor + autonomy);
 		if(i.Weapon1ShotsPerSalvo == i.Weapon1DisplayedAmmunition) {
 			category = category + ' | **Autoloaded**';
 		}
 	} else if(i.Tab === 'REC') {
-		category = ('**Recon** | **Nationality**: ' + country_flag +  proto);
+		if(i.IsTransporter === 'TRUE')
+			category = ('**Recon** ' + ' | **Transport**' + category);
+		else
+			category = ('**Recon** ' + category);
 		if(i.Training !== '') {
 			movement = (movement + '\n**Training**: ' + i.Training);
 		} else {
 			movement = (movement + armor + autonomy);
 		}
 	} else if(i.Tab === 'VHC') {
-		category = ('**Vehicle** | **Nationality**: ' + country_flag + proto);
+		if(i.IsTransporter === 'TRUE')
+			category = ('**Vehicle** ' + ' | **Transport**' + category);
+		else
+			category = ('**Vehicle** ' + category);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab === 'HEL') {
-		category = ('**Helicopter** | **Nationality**: ' + country_flag + proto);
+		if(i.IsTransporter === 'TRUE')
+			category = ('**Helicopter** ' + ' | **Transport**' + category);
+		else
+			category = ('**Helicopter** ' + category);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab === 'PLA') {
 		const airOptics = {
@@ -174,16 +185,21 @@ module.exports.formatting = (i, show_img = false) => {
 		if(airOptics.hasOwnProperty(i.OpticalStrengthAir)) {
 			i.OpticalStrengthAir = airOptics[i.OpticalStrengthAir];
 		}
-		category = ('**Plane** | **Nationality**: ' + country_flag + proto);
+		//Data doesnt import turn radius | mouvementhandler => TAirplanephysicConfiguration => AgilityRadiusInMeter
+		//let turn_radius = ' | **Turn Radius**: ' + i.TurnRadius
+		category = ('**Plane** ' + category);
 		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Air Detection**: ' + i.OpticalStrengthAir);
 		movement = (movement + armor + autonomy);
 	} else if(i.Tab = 'NAV') {
-		category = ('**Naval** | **Nationality**: ' + country_flag + proto);
+		if(i.IsTransporter === 'TRUE')
+			category = ('**Naval** ' + ' | **Transport**' + category);
+		else
+			category = ('**Naval** ' + category);
 		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed / 18.5) + 'kt | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround + ' \n **Air Detection**: ' + i.OpticalStrengthAir + ' \n**CIWS**: ' + i.CIWS);
 		movement = (movement + '\n' + armor);
 	}
 	if(i.SupplyCapacity !== '') {
-		category = ('**Logistics** | **Supply capacity**: ' + i.SupplyCapacity + ' | **Nationality**: ' + country_flag + proto);
+		category = ('**Logistics** ' + category +' | **Supply capacity**: ' + i.SupplyCapacity);
 	}
 	if(i.Amphibious === 'TRUE') {
 		category = category + (' **| Amphibious** ');
@@ -255,6 +271,7 @@ module.exports.formatting = (i, show_img = false) => {
 		radius_splash_physical = i['Weapon' + j + 'RadiusSplashPhysicalDamage'];
 		radius_splash_suppress = i['Weapon' + j + 'RadiusSplashSuppressDamage'];
 		rayon_pinned = i['Weapon' + j + 'RayonPinned'];
+		can_smoke = i['Weapon' + j + 'CanSmoke'];
 		const salvo_duration = Math.round(time_between_shots * shots_per_salvo)
 		const salvo_he_sum = Math.round(he * shots_per_salvo)
 		const true_rof = Math.round(60 * shots_per_salvo / ((shots_per_salvo - 1) * time_between_shots - -time_between_salvos));
@@ -272,6 +289,8 @@ module.exports.formatting = (i, show_img = false) => {
 		weapon += name + '\n';
 		weapon += caliber + ' x' + displayed_ammo + '\n';
 		if(tags) {
+			if(can_smoke === 'TRUE' && !tags.includes('SMK'))
+				tags = tags + '|SMK'
 			weapon += '**' + tags.replace('IFC', '') + '**\n';
 		} else {
 			weapon += '**|**\n';
