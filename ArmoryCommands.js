@@ -10,6 +10,7 @@ const Discord = require('discord.js');
 const units = require('./Data/UnitData.json');
 const format = require('./Formatting.js');
 const damage = require('./Data/FinalArmorData.json');
+const {comparing} = require('./Comparing')
 const fs = require('fs');
 
 module.exports.unit = (args, message, limit, displaylimit) => {
@@ -327,4 +328,50 @@ module.exports.heattable = (args, message) => {
 		console.log(err + 'Error on line 484 armoryCommands.js');
 	});
 };
-//477 + 177 + 373 + 539 
+//477 + 177 + 373 + 539
+
+
+module.exports.compare = (args, message) => {
+	const errorCompareFormat = "Please respect the follwing format: ```!compare <unit1> vs <unit2>``` "
+	let indexToSplit = args.indexOf('vs');
+	if (indexToSplit === -1) {
+		message.reply(errorCompareFormat).catch(err => {
+			console.log(err);
+		});
+		return
+	}
+	let unit1 = args.slice(0, indexToSplit).join(' ')
+	let unit2 = args.slice(indexToSplit + 1).join(' ');
+	if (unit1 === "" || unit2 === "") {
+		message.reply(errorCompareFormat)
+		return
+	}
+	const matchingUnits1 = units.filter((i, index) => { //make matchingUnits into a filter of units
+		s1 = unit1.replace(/[^\w]/g, '').toLowerCase();
+		s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
+		if(s2.match(s1)) { // check if unit includes allArgs
+			return i;
+		}
+	});
+	const matchingUnits2 = units.filter((i, index) => { //make matchingUnits into a filter of units
+		s1 = unit2.replace(/[^\w]/g, '').toLowerCase();
+		s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
+		if(s2.match(s1)) { // check if unit includes allArgs
+			return i;
+		}
+	});
+	if(matchingUnits1.length === 0) {
+		message.reply('No units matched with the name ' + unit1);
+		return
+	} else if(matchingUnits2.length === 0) {
+		message.reply('No units matched with the name ' + unit2);
+		return
+	}
+	if (matchingUnits1.length > 1 && matchingUnits1[0].Name !== unit1.toUpperCase()) {
+		message.channel.send("first unit sent for '" + unit1 + "', these are the other variations: " + matchingUnits1.map(x =>  "**" + x.Name + "**").join(' | '));
+	}
+	if (matchingUnits2.length > 1 && matchingUnits2[0].Name !== unit2.toUpperCase()) {
+		message.channel.send("first unit sent for '" + unit2 + "', these are the other variations: " + matchingUnits2.map(x =>  "**" + x.Name + "**").join(' | '));
+	}
+	message.channel.send(comparing(matchingUnits1[0], matchingUnits2[0]))
+}
