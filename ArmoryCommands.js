@@ -340,26 +340,44 @@ module.exports.compare = (args, message) => {
 		});
 		return
 	}
-	let unit1 = args.slice(0, indexToSplit).join(' ')
-	let unit2 = args.slice(indexToSplit + 1).join(' ');
+	let unit1 = args.slice(0, indexToSplit).join('');
+	let unit2 = args.slice(indexToSplit + 1).join('');
 	if (unit1 === "" || unit2 === "") {
 		message.reply(errorCompareFormat)
 		return
 	}
-	const matchingUnits1 = units.filter((i, index) => { //make matchingUnits into a filter of units
+	let matchingUnits1 = units.filter((i, index) => { //make matchingUnits into a filter of units
 		s1 = unit1.replace(/[^\w]/g, '').toLowerCase();
 		s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
-		if(s2.match(s1)) { // check if unit includes allArgs
+		if(s2 === s1) { // check if unit includes allArgs
 			return i;
 		}
 	});
-	const matchingUnits2 = units.filter((i, index) => { //make matchingUnits into a filter of units
+	if(!matchingUnits1[0]){
+		matchingUnits1 = units.filter((i, index) => { //make matchingUnits into a filter of units
+			s1 = unit1.replace(/[^\w]/g, '').toLowerCase();
+			s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
+			if(s2.match(s1)) { // check if unit includes allArgs
+				return i;
+			}
+		});	
+	}
+	let matchingUnits2 = units.filter((i, index) => { //make matchingUnits into a filter of units
 		s1 = unit2.replace(/[^\w]/g, '').toLowerCase();
 		s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
-		if(s2.match(s1)) { // check if unit includes allArgs
+		if(s2 === s1) { // check if unit includes allArgs
 			return i;
 		}
 	});
+	if(!matchingUnits2[0]){
+	 	matchingUnits2 = units.filter((i, index) => { //make matchingUnits into a filter of units
+			s1 = unit2.replace(/[^\w]/g, '').toLowerCase();
+			s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
+			if(s2.match(s1)) { // check if unit includes allArgs
+				return i;
+			}
+		});	
+	}
 	if(matchingUnits1.length === 0) {
 		message.reply('No units matched with the name ' + unit1);
 		return
@@ -367,11 +385,26 @@ module.exports.compare = (args, message) => {
 		message.reply('No units matched with the name ' + unit2);
 		return
 	}
-	if (matchingUnits1.length > 1 && matchingUnits1[0].Name !== unit1.toUpperCase()) {
-		message.channel.send("first unit sent for '" + unit1 + "', these are the other variations: " + matchingUnits1.map(x =>  "**" + x.Name + "**").join(' | '));
-	}
-	if (matchingUnits2.length > 1 && matchingUnits2[0].Name !== unit2.toUpperCase()) {
-		message.channel.send("first unit sent for '" + unit2 + "', these are the other variations: " + matchingUnits2.map(x =>  "**" + x.Name + "**").join(' | '));
-	}
-	message.channel.send(comparing(matchingUnits1[0], matchingUnits2[0]))
+
+	const filter = (reaction, user, member) => { //make a filter of only the reaction wastebasket made by the user
+		return ['🗑'].includes(reaction.emoji.name) && user.id === message.author.id;
+	};
+	message.channel.send(comparing(matchingUnits1[0], matchingUnits2[0])).catch(err => console.log(err)).then(m => {
+		m.react('🗑'); //react with a wastebasket to the bots own post
+		m.awaitReactions(filter, {
+				max: 1,
+				time: 60000,
+				errors: ['Time'],
+			}) //wait 30 seconds for reactions and throw an error if none are found after 15seconds
+			.then(collected => {
+				const reaction = collected.first();
+				if(reaction.emoji.name === '🗑') { //if the reaction is wastebasket, delete the bot's message, and if the unit matching length is less than 2, delete the user's message
+					m.delete().then(() => {
+						message.delete(message).catch(err => {});
+					});
+				}
+			}).catch(err => { //if there are no reactions after 15 seconds that match the filter, throw an error, on that error, clear all reactions
+				m.reactions.removeAll().catch(error => console.error('Failed to clear reactions: ', error));
+			});
+	});
 }

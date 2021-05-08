@@ -55,7 +55,7 @@ client.on('error', err => {
 client.on('message', async message => {
 	//message.member = await message.guild.members.fetch(message.author);
 	const args = message.content.split(' ');
-	if(message.channel.id != '840032221967941635') return;
+	if(message.channel.id != '836102443892342817') return;
 	if(message.attachments.first())
 		if(message.attachments.first().url.endsWith('.wargamerpl2')) {
 			commonCommands.replay(args, message);
