@@ -289,8 +289,9 @@ module.exports.formatting = (i, show_img = false) => {
 		weapon += name + '\n';
 		weapon += caliber + ' x' + displayed_ammo + '\n';
 		if(tags) {
-			if(can_smoke === 'TRUE' && !tags.includes('SMK'))
-				tags = tags + '|SMK'
+			//at weapons can_smoke = true for some reason..
+			//if(can_smoke === 'TRUE' && !tags.includes('SMK'))
+			//	tags = tags + '|SMK'
 			weapon += '**' + tags.replace('IFC', '') + '**\n';
 		} else {
 			weapon += '**|**\n';

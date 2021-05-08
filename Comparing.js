@@ -357,13 +357,10 @@ module.exports.comparing = (i1, i2) => {
 	i2_deck_id = i2_side + i2.DeckID
 	i2_category = i2_category + (' \n **Spec decks**:\n' + i2.Decks.split('|').join('\n'));
 
-	const embed = new Discord.MessageEmbed().setTitle('Comparing:\n' + '**1-** ' + i1_title + '\n**2-** ' + i2_title);
+	const embed = new Discord.MessageEmbed().setTitle('Comparing:');
 
-	embed.addField('\u200b', i1_title, true);
-	embed.addField('\u200b', i2_title, true);
-	embed.addField('\u200b', '\u200b', true);
-	embed.addField('**Price**: ' + i1_price,'\n**Strength**: ' + i1.Strength, true);
-	embed.addField('**Price**: ' + i2_price,'\n**Strength**: ' + i2.Strength, true);
+	embed.addField(i1_title, '**Price**: ' + i1_price + '\n**Strength**: ' + i1.Strength, true);
+	embed.addField(i2_title, '**Price**: ' + i2_price + '\n**Strength**: ' + i2.Strength, true);
 	embed.addField('\u200b', '\u200b', true);
 	embed.addField('**Category**: ', i1_category, true);
 	embed.addField('**Category**: ', i2_category, true);
