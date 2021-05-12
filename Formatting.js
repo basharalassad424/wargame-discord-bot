@@ -276,6 +276,13 @@ module.exports.formatting = (i, show_img = false) => {
 		const salvo_he_sum = Math.round(he * shots_per_salvo)
 		const true_rof = Math.round(60 * shots_per_salvo / ((shots_per_salvo - 1) * time_between_shots - -time_between_salvos));
 		const rof = Math.round((displayed_ammo / (number_of_salvos * shots_per_salvo)) * true_rof);
+		
+		//dual purpose missiles from adats and stormer dont have heli and plane range however they both follow the same pattern of relation between the ground range and the others
+		if(type == 'Dual purpose missile'){
+			range_heli =   Number(range_ground) + 3*175;
+			range_planes = range_ground - 175;
+		}
+		
 		// the dude that made the final data csv bungled the helo range for autocannons
 		// previous fix messed up the SUP SPAAGs
 		if(type == 'Autocannon' && Math.trunc(range_ground) > 1575 && i.Tab != "SUP") {
