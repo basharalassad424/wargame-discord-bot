@@ -125,6 +125,7 @@ module.exports.formatting = (i, show_img = false) => {
 	let year = ' | **Year**: ' + i.Year;
 	let category = (year + ' | **Nationality**: ' + country_flag + proto);
 	let armor = '\n**Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop
+	let ecm = ' | **ECM: **' + Math.abs(100*i.ECM) + '%';
 	let autonomy = '\n**Autonomy: **' + i.Autonomy + ' seconds';
 	let movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + '\n' + '**Air detection**: ' + i.OpticalStrengthAir + ' | **Ground optics**: ' + i.OpticalStrengthGround);
 	//specialized formatting
@@ -189,13 +190,13 @@ module.exports.formatting = (i, show_img = false) => {
 		//let turn_radius = ' | **Turn Radius**: ' + i.TurnRadius
 		category = ('**Plane** ' + category);
 		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Air Detection**: ' + i.OpticalStrengthAir);
-		movement = (movement + armor + autonomy);
+		movement = (movement + armor + autonomy + ecm);
 	} else if(i.Tab = 'NAV') {
 		if(i.IsTransporter === 'TRUE')
 			category = ('**Naval** ' + ' | **Transport**' + category);
 		else
 			category = ('**Naval** ' + category);
-		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed / 18.5) + 'kt | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround + ' \n **Air Detection**: ' + i.OpticalStrengthAir + ' \n**CIWS**: ' + i.CIWS);
+		movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed / 18.5) + 'kt | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround + ' \n **Air Detection**: ' + i.OpticalStrengthAir +' \n**CIWS**: ' + i.CIWS + ecm );
 		movement = (movement + '\n' + armor);
 	}
 	if(i.SupplyCapacity !== '') {
