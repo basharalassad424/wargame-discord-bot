@@ -199,7 +199,7 @@ client.on('message', async message => {
 				message.channel.send('here is the directory for the replay folder: \n\n *Windows: C:\\Users%username%\\Saved Games\\EugenSystems\\WarGame3* \n\nLinux: ~/.config/EugenSystems/Wargame3/saves \n\n Mac: [Hard drive] > Users > [your account] > Library > Application Support > EugenSystems > Wargame3 > SavedGames');
 				break;
 			case 'maplist':
-				message.channel.send('\n Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
+				message.channel.send('  Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
 				break;
 			case 'decks':
 				var array = fs.readFileSync(decks_file).toString().split("\n");

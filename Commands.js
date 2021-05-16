@@ -9,7 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const maps_folder = 'Pictures/Map\ Pictures'
-const maps = ['Mudfight', 'Wonsan_Harbor', 'Nuclear_Winter', 'Chosin_Reservoir', 'Corner_Hell', 'Highway_to_Seoul', 'Paddy_Field', 'Plunjing_Valley', 'Jungle_Law', '38th_Perpendicular', 'Cliff_Hanger', 'Death_Corridor']
+const maps = ['Mudfight', 'Wonsan Harbor', 'Nuclear Winter', 'Chosin Reservoir', 'Corner Hell', 'Highway to Seoul', 'Paddy Field', 'Plunjing Valley', 'Jungle Law', '38th Perpendicular', 'Cliff Hanger', 'Death Corridor']
 const help = ('\n' + '**!unit <unit>** - Displays the full stats of any units with the matching name \n' + '**!unitlist <unit>** - Displays a message where you can scroll through the units using reactions \n' + '**!compare <unit1> vs <unit2>** - Compare 2 units with the matching names side by side \n' + '**!list <unit>** - Lists all matching units \n' + '**!ke <ke value>** - Displays a table of armor damage values for that ke value \n' + '**!heat <heat value>** - Displays a table of armor damage for that heat value \n' + '**!armor <0 - 25 armor>** - Displays the damage resistance of an armor value towards ke and heat \n' + '**!map <map>** - Displays a map, Example: !map mudfight \n' + '**!maplist** - List of maps in the tactical servers \n' + '**!decks** - gives a list of decks for tacticals \n' + '**!vet** - Shows Vlern\'s table of accuracy with upvetting \n' + '**!links** - Shows useful links for wargame related posts and documents \n' + '**!userinvite** - Makes a 2 hour, 1 use invite for you to invite someone \n' + '**!replayfolder** - Folder Where game replays are stored \n' + 'Dragging a replay file on to this channel will show info about the match\n');
 const adminhelp = ('List of admin commands: \n**!invite <duration in minutes> <uses>** - Creates an invite link, set duration to zero to make it infinite duration \n **!changelimit <number>** - Changes the limit of matching units to display fully \n **!changedisplaylimit <number>** - Changes the limit of units to be shown in a name list \n **!dynocommands** - Turns on / off the dyno commands (!unspec !rookie, etc)');
 const deck = require('./Data/Deck.js');
@@ -42,7 +42,7 @@ module.exports.map = (args, message) => {
 		message.reply('Too many maps matched the name ' + allArgs);
 		return;
 	}
-	let embed = new Discord.MessageEmbed().setTitle('Here is the map ' + matchingMaps[0]).setColor('WHITE').attachFiles(maps_folder + '/' + matchingMaps[0].toLowerCase() + '.png');
+	let embed = new Discord.MessageEmbed().setTitle('Here is the map ' + matchingMaps[0]).setColor('WHITE').attachFiles(maps_folder + '/' + matchingMaps[0].replace(/\ /g, '_').toLowerCase() + '.png');
 	message.reply(embed).then(m => {
 		m.react('🗑');
 		m.awaitReactions(filter, {
