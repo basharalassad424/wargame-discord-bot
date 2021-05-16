@@ -135,6 +135,7 @@ module.exports.comparing = (i1, i2) => {
 	let i1_year = '\n**Year**: ' + i1.Year;
 	let i1_category = (i1_year + '\n**Nationality**: ' + i1_country_flag + i1_proto);
 	let i1_armor = '\n**Armor: ** \nFront: ' + i1_armorfront + '\nSides: ' + i1_armorsides + '\nRear: ' + i1_armorrear + '\nTop: ' + i1_armortop
+	let i1_ecm = ' | **ECM: **' + Math.abs(100*i1.ECM) + '%';
 	let i1_autonomy = '\n**Autonomy: **' + i1.Autonomy + 's';
 	let i1_movement = ('**Movement**', '\n**Type**: ' + i1.MovementType + '\n**Speed**: ' + Math.trunc(i1.MaxSpeed) + 'kph\n**Stealth**: ' + i1.Stealth + '\n' + '**Air detection**: ' + i1.OpticalStrengthAir + '\n**Ground optics**: ' + i1.OpticalStrengthGround);
 	//specialized formatting
@@ -193,13 +194,13 @@ module.exports.comparing = (i1, i2) => {
 		//let turn_radius = ' | **Turn Radius**: ' + i.TurnRadius
 		i1_category = ('\n**Plane** ' + i1_category);
 		i1_movement = ('**Movement**', '\n**Type**: ' + i1.MovementType + '\n**Speed**: ' + Math.trunc(i1.MaxSpeed) + 'kph\n**Stealth**: ' + i1.Stealth + '\n**Air Detection**: ' + i1.OpticalStrengthAir);
-		i1_movement = (i1_movement + i1_armor + i1_autonomy);
+		i1_movement = (i1_movement + i1_armor + i1_autonomy + i1_ecm);
 	} else if(i1.Tab = 'NAV') {
 		if(i1.IsTransporter === 'TRUE')
 			i1_category = ('\n**Naval** ' + '\n**Transport**' + i1_category);
 		else
 			i1_category = ('\n**Naval** ' + i1_category);
-		i1_movement = ('**Movement**', '\n**Type**: ' + i1.MovementType + '\n**Speed**: ' + Math.trunc(i1.MaxSpeed / 18.5) + 'kt\n**Stealth**: ' + i1.Stealth + ' \n**Ground optics**: ' + i1.OpticalStrengthGround + '\n**Air Detection**: ' + i1.OpticalStrengthAir + '\n**CIWS**: ' + i1.CIWS);
+		i1_movement = ('**Movement**', '\n**Type**: ' + i1.MovementType + '\n**Speed**: ' + Math.trunc(i1.MaxSpeed / 18.5) + 'kt\n**Stealth**: ' + i1.Stealth + ' \n**Ground optics**: ' + i1.OpticalStrengthGround + '\n**Air Detection**: ' + i1.OpticalStrengthAir + '\n**CIWS**: ' + i1.CIWS + i1_ecm);
 		i1_movement = (i1_movement + '\n' + i1_armor);
 	}
 	if(i1.SupplyCapacity !== '') {
@@ -281,6 +282,7 @@ module.exports.comparing = (i1, i2) => {
 	let i2_year = '\n**Year**: ' + i2.Year;
 	let i2_category = (i2_year + '\n**Nationality**: ' + i2_country_flag + i2_proto);
 	let i2_armor = '\n**Armor: ** \nFront: ' + i2_armorfront + '\nSides: ' + i2_armorsides + '\nRear: ' + i2_armorrear + '\nTop: ' + i2_armortop
+	let i2_ecm = ' | **ECM: **' + Math.abs(100*i2.ECM) + '%';
 	let i2_autonomy = '\n**Autonomy: **' + i2.Autonomy + 's';
 	let i2_movement = ('**Movement**', '\n**Type**: ' + i2.MovementType + '\n**Speed**: ' + Math.trunc(i2.MaxSpeed) + 'kph\n**Stealth**: ' + i2.Stealth + '\n' + '**Air detection**: ' + i2.OpticalStrengthAir + '\n**Ground optics**: ' + i2.OpticalStrengthGround);
 	//specialized formatting
@@ -339,13 +341,13 @@ module.exports.comparing = (i1, i2) => {
 		//let turn_radius = ' | **Turn Radius**: ' + i.TurnRadius
 		i2_category = ('\n**Plane** ' + i2_category);
 		i2_movement = ('**Movement**', '\n**Type**: ' + i2.MovementType + '\n**Speed**: ' + Math.trunc(i2.MaxSpeed) + 'kph\n**Stealth**: ' + i2.Stealth + '\n**Air Detection**: ' + i2.OpticalStrengthAir);
-		i2_movement = (i2_movement + i2_armor + i2_autonomy);
+		i2_movement = (i2_movement + i2_armor + i2_autonomy + i2_ecm);
 	} else if(i2.Tab = 'NAV') {
 		if(i2.IsTransporter === 'TRUE')
 			i2_category = ('\n**Naval** ' + '\n**Transport**' + i2_category);
 		else
 			i2_category = ('\n**Naval** ' + i2_category);
-		i2_movement = ('**Movement**', '\n**Type**: ' + i2.MovementType + '\n**Speed**: ' + Math.trunc(i2.MaxSpeed / 18.5) + 'kt\n**Stealth**: ' + i2.Stealth + ' \n**Ground optics**: ' + i2.OpticalStrengthGround + '\n**Air Detection**: ' + i2.OpticalStrengthAir + '\n**CIWS**: ' + i2.CIWS);
+		i2_movement = ('**Movement**', '\n**Type**: ' + i2.MovementType + '\n**Speed**: ' + Math.trunc(i2.MaxSpeed / 18.5) + 'kt\n**Stealth**: ' + i2.Stealth + ' \n**Ground optics**: ' + i2.OpticalStrengthGround + '\n**Air Detection**: ' + i2.OpticalStrengthAir + '\n**CIWS**: ' + i2.CIWS + i2_ecm);
 		i2_movement = (i2_movement + '\n' + i2_armor);
 	}
 	if(i2.SupplyCapacity !== '') {
