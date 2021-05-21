@@ -52,6 +52,21 @@ client.on('error', err => {
 	console.log(err)
 });
 
+// send welcome message on user join server
+client.on('guildMemberAdd', member => {
+	const channelId = '845014788488429640'; // welcome channel 
+	welcome_msg = `Hi <@${member.id}> .Welcome to the Bashar Al-Assad 10v10 discord!\n\n`; 
+	welcome_msg += 'Make sure to read the <#813032700210053130> and <#751452902496927756>. To use this server you must agree to them.\n'; 
+	welcome_msg += 'Feel free to ask question and engage with the community!\n'; 
+	welcome_msg += 'The <#838139755212308480> is where i help you with useful commands. Go there and type !help if you want to learn more.\n'; 
+	welcome_msg += 'Please change your discord nickname on this server to your ingame nickname. You can do that by right clicking your name on the sidebar and change nickname.\n'; 
+	welcome_msg += 'Report any abuse(game or discord) on <#817357644348129301>, follow the format in the channel description\n'; 
+	welcome_msg += 'Stay tuned for announcements on <#834958637394427904>.\n';
+	welcome_msg += 'Good luck, Have fun!\n';
+	const channel = client.channels.cache.get(channelId);
+	channel.send(welcome_msg);
+});
+
 client.on('message', async message => {
 	//message.member = await message.guild.members.fetch(message.author);
 	const args = message.content.split(' ');

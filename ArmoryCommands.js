@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 //
 const Discord = require('discord.js');
 const units = require('./Data/UnitData.json');
+//const units = require('./Data/final_data.json');
 const format = require('./Formatting.js');
 const damage = require('./Data/FinalArmorData.json');
 const {comparing} = require('./Comparing')

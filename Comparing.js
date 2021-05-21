@@ -135,7 +135,7 @@ module.exports.comparing = (i1, i2) => {
 	let i1_year = '\n**Year**: ' + i1.Year;
 	let i1_category = (i1_year + '\n**Nationality**: ' + i1_country_flag + i1_proto);
 	let i1_armor = '\n**Armor: ** \nFront: ' + i1_armorfront + '\nSides: ' + i1_armorsides + '\nRear: ' + i1_armorrear + '\nTop: ' + i1_armortop
-	let i1_ecm = ' | **ECM: **' + Math.abs(100*i1.ECM) + '%';
+	let i1_ecm = '\n**ECM: **' + Math.abs(100*i1.ECM) + '%';
 	let i1_autonomy = '\n**Autonomy: **' + i1.Autonomy + 's';
 	let i1_movement = ('**Movement**', '\n**Type**: ' + i1.MovementType + '\n**Speed**: ' + Math.trunc(i1.MaxSpeed) + 'kph\n**Stealth**: ' + i1.Stealth + '\n' + '**Air detection**: ' + i1.OpticalStrengthAir + '\n**Ground optics**: ' + i1.OpticalStrengthGround);
 	//specialized formatting
@@ -282,7 +282,7 @@ module.exports.comparing = (i1, i2) => {
 	let i2_year = '\n**Year**: ' + i2.Year;
 	let i2_category = (i2_year + '\n**Nationality**: ' + i2_country_flag + i2_proto);
 	let i2_armor = '\n**Armor: ** \nFront: ' + i2_armorfront + '\nSides: ' + i2_armorsides + '\nRear: ' + i2_armorrear + '\nTop: ' + i2_armortop
-	let i2_ecm = ' | **ECM: **' + Math.abs(100*i2.ECM) + '%';
+	let i2_ecm = '\n**ECM: **' + Math.abs(100*i2.ECM) + '%';
 	let i2_autonomy = '\n**Autonomy: **' + i2.Autonomy + 's';
 	let i2_movement = ('**Movement**', '\n**Type**: ' + i2.MovementType + '\n**Speed**: ' + Math.trunc(i2.MaxSpeed) + 'kph\n**Stealth**: ' + i2.Stealth + '\n' + '**Air detection**: ' + i2.OpticalStrengthAir + '\n**Ground optics**: ' + i2.OpticalStrengthGround);
 	//specialized formatting

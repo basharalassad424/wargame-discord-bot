@@ -207,9 +207,9 @@ module.exports.formatting = (i, show_img = false) => {
 	}
 	deck_id = side + i.DeckID
 	category = category + (' \n **Spec decks**: ' + i.Decks);
-	const attachments = new Discord.MessageAttachment('Pictures/picsb/' + deck_id + '.png')
 	const embed = new Discord.MessageEmbed().setTitle(title).setColor(color).addField('**Price: **' + price, '\n**Strength**: ' + i.Strength).addField('**Category**', category).addField('**Movement**', movement).addField('**Availability**', availability);
 	if(show_img === true) {
+		const attachments = new Discord.MessageAttachment('Pictures/picsb/' + deck_id + '.png')
 		embed.attachFiles(attachments);
 		embed.setThumbnail('attachment://' + deck_id + '.png');
 	}
