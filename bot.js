@@ -15,6 +15,7 @@ const client = new Discord.Client();
 const prefix = '!';
 const commands = require('./ArmoryCommands.js');
 const commonCommands = require('./Commands.js');
+const maplist = require('./Data/MapList.json');
 const token = process.env.token;
 const format = require('./Formatting.js');
 const fs = require('fs');
@@ -55,13 +56,14 @@ client.on('error', err => {
 // send welcome message on user join server
 client.on('guildMemberAdd', member => {
 	const channelId = '845014788488429640'; // welcome channel 
-	welcome_msg = `Hi <@${member.id}> .Welcome to the Bashar Al-Assad 10v10 discord!\n\n`; 
-	welcome_msg += 'Make sure to read the <#813032700210053130> and <#751452902496927756>. To use this server you must agree to them.\n'; 
-	welcome_msg += 'Feel free to ask question and engage with the community!\n'; 
-	welcome_msg += 'The <#838139755212308480> is where i help you with useful commands. Go there and type !help if you want to learn more.\n'; 
-	welcome_msg += 'Please change your discord nickname on this server to your ingame nickname. You can do that by right clicking your name on the sidebar and change nickname.\n'; 
-	welcome_msg += 'Report any abuse(game or discord) on <#817357644348129301>, follow the format in the channel description\n'; 
-	welcome_msg += 'Stay tuned for announcements on <#834958637394427904>.\n';
+	welcome_msg = `Hi <@${member.id}>. Welcome to the Bashar Al-Assad 10v10 discord!\n\n`; 
+	welcome_msg += 'Make sure to read the <#813032700210053130> and <#751452902496927756>. To use this server you must agree to them.\n\n'; 
+	welcome_msg += 'Feel free to ask questions and engage with the community!\n\n'; 
+	welcome_msg += 'The <#838139755212308480> is where i help you with useful commands. Go there and type !help if you want to learn more.\n\n'; 
+	welcome_msg += `Please change your discord nickname on this server to your ingame nickname. You can do this by right clicking here:<@${member.id}>, then change nickname \n\n`; 
+	welcome_msg += 'Check <#813044003925655583> for quick tips for beginners.\n\n'; 
+	welcome_msg += 'Report any abuse(game or discord) on <#817357644348129301>, follow the format in the channel description.\n\n'; 
+	welcome_msg += 'Stay tuned for announcements on <#834958637394427904>.\n\n';
 	welcome_msg += 'Good luck, Have fun!\n';
 	const channel = client.channels.cache.get(channelId);
 	channel.send(welcome_msg);
@@ -176,6 +178,7 @@ client.on('message', async message => {
 			commands.aptable(args, message);
 			break;
 		case 'armor':
+		case 'armour':
 			commands.ke(args, message, heatdata);
 			break;
 		case 'ke':
@@ -190,6 +193,12 @@ client.on('message', async message => {
 		case 'vet':
 			message.channel.send({
 				files: ['./Pictures/Misc/VetTable.png']
+			});
+		case 'optics':
+		case 'optic':
+		case 'stealth':
+			message.channel.send({
+				files: ['./Pictures/Misc/Optics.png']
 			});
 			break;
 		case 'help':
@@ -208,13 +217,16 @@ client.on('message', async message => {
 	if(commoncommands == true) {
 		switch(commandName) {
 			case 'links':
-				message.channel.send('\n' + 'Eugen oficial game manual: <http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147>' + '\n' + 'Spreadsheet with optics and stealth data: <https://docs.google.com/spreadsheets/d/1AqCmqMCn7ITnfchU8KZqE7NNBl2eAN3WM1yLD_C328U>' + '\n' + 'Rate of fire spreadsheet: <https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233>' + '\n' + 'List of critical hits: <https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit>' + '\n' + 'Armory tool: <https://forums.eugensystems.com/viewtopic.php?t=59265>' + '\n' + 'Hon beginner guide: <https://honhonhonhon.wordpress.com/how-to-get-started-with-wargame/>' + '\n' + 'Key Values to remember: <https://www.reddit.com/r/wargamebootcamp/comments/7oj7nx/list_of_key_values_to_keep_track_of_for_beginners/>' + '\n' + 'Guide to put flags and specs in deck names: <https://steamcommunity.com/sharedfiles/filedetails/?id=355698402>');
+				message.channel.send('\n' + 'Eugen oficial game manual: <http://cdn.akamai.steamstatic.com/steam/apps/251060/manuals/WARGAME_RED-DRAGON_manuel_INT-digital.pdf?t=1407520147>' + '\n' + 'Rate of fire spreadsheet: <https://docs.google.com/spreadsheets/d/1dx28wRZ_3ofnP7kWKcoziGpPw2tOAJcixnuiKjJPL-A/edit#gid=1401351233>' + '\n' + 'List of critical hits: <https://docs.google.com/document/d/1cUyJFaJAiMl4WnQMEmGw_D955oEgDUjGwFMnxboZewQ/edit>' + '\n' + 'Armory tool: <https://forums.eugensystems.com/viewtopic.php?t=59265>' + '\n' + 'Hon beginner guide: <https://honhonhonhon.wordpress.com/how-to-get-started-with-wargame/>' + '\n' + 'Key Values to remember: <https://www.reddit.com/r/wargamebootcamp/comments/7oj7nx/list_of_key_values_to_keep_track_of_for_beginners/>' + '\n' + 'Guide to put flags and specs in deck names: <https://steamcommunity.com/sharedfiles/filedetails/?id=355698402>');
 				break;
 			case 'replayfolder':
 				message.channel.send('here is the directory for the replay folder: \n\n *Windows: C:\\Users%username%\\Saved Games\\EugenSystems\\WarGame3* \n\nLinux: ~/.config/EugenSystems/Wargame3/saves \n\n Mac: [Hard drive] > Users > [your account] > Library > Application Support > EugenSystems > Wargame3 > SavedGames');
 				break;
 			case 'maplist':
-				message.channel.send('  Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
+				msg = '';
+				maplist.forEach(map => {msg += map + '\n'});
+				message.channel.send(msg);	
+				//message.channel.send('  Mud fight \n Plunjing valley \n Paddy field \n Punchbowl \n Corner Hell \n Highway to seoul \n Nuclear winter \n Wonsan Harbor \n Death Row \n Jungle Law \n Cliff Hanger \n 38th Parallel');
 				break;
 			case 'decks':
 				var array = fs.readFileSync(decks_file).toString().split("\n");

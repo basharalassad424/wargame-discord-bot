@@ -291,8 +291,9 @@ module.exports.formatting = (i, show_img = false) => {
 		} else if(type == 'Autocannon' && Math.trunc(range_ground) <= 1575 && i.Tab != "SUP") {
 			range_heli = range_ground;
 		}
-		let arty_types = ['Howitzer', 'Mortar', 'MLRS']
-		let automatic_gun_types = ['HMG', 'MMG', 'LMG', 'Assault Rifle', 'SAW', 'Autocannon', 'SMG', 'Grenade Launcher', 'Battle Rifle', 'Flamethrower', 'Rocket Launcher']
+		let arty_types = ['Howitzer', 'Mortar', 'MLRS'];
+		let bomb_types = ['Laser Guided HE Bomb', 'Retarded HE Bomb', 'HE Bomb'];
+		let automatic_gun_types = ['HMG', 'MMG', 'LMG', 'Assault Rifle', 'SAW', 'Autocannon', 'SMG', 'Grenade Launcher', 'Battle Rifle', 'Flamethrower', 'Rocket Launcher'];
 		let weapon = '';
 		weapon += name + '\n';
 		weapon += caliber + ' x' + displayed_ammo + '\n';
@@ -324,7 +325,7 @@ module.exports.formatting = (i, show_img = false) => {
 		}
 		weapon += '**AP Power:** ' + ap + '\n';
 		weapon += '**HE Power:** ' + he + '\n';
-		if(arty_types.includes(type)) {
+		if(arty_types.includes(type) || bomb_types.includes(type)) {
 			weapon += '**Damage Radius**: ' + Math.round(radius_splash_physical) + '\n';
 			weapon += '**Supress Radius**: ' + Math.round(radius_splash_suppress) + '\n';
 		}
