@@ -119,6 +119,7 @@ module.exports.unit = (args, message, limit, displaylimit) => {
 				});
 			}
 			const matching = [];
+			matchingUnits.shift();
 			matchingUnits.forEach((i) => {
 				matching.push('**' + i.Name + '** | ');
 			});
@@ -274,9 +275,39 @@ module.exports.ke = (args, message, heatdata) => {
 			return i;
 		}
 	});
+	let he1DamageTable = [1, 1, 0.4, 0.3, 0.2, 0.15, 0.1, 0.1, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01];
+	let embedString = '';
+	for(i=1; i<= 20; i++){
+		 embedString += '\n**HE ' + i  + '**: ' +  (i * he1DamageTable[args[0]]).toFixed(2).toString();
+	}
 	kedata.forEach((i) => {
-		const embed = new Discord.MessageEmbed().setTitle(i.ArmorAP + ' Armor Damage Table').setColor('WHITE').addField('​', '**AP 1**: ' + i.KE1 + '**\nAP 2**: ' + i.KE2 + '**\nAP 3**: ' + i.KE3 + '\n**AP 4**: ' + i.KE4 + '**\nAP 5**: ' + i.KE5 + '\n**AP 6**: ' + i.KE6 + '\n**AP 7**: ' + i.KE7 + '\n**AP 8**: ' + i.KE8 + '\n**AP 9**: ' + i.KE9 + '**\nAP 10**: ' + i.KE10 + '**\nAP 11**: ' + i.KE11 + '**\nAP 12**: ' + i.KE12 + '**\nAP 13**: ' + i.KE13 + '**\nAP 14**: ' + i.KE14 + '**\nAP 15**: ' + i.KE15 + '**\nAP 16**: ' + i.KE16 + '**\nAP 17**: ' + i.KE17 + '**\nAP 18**: ' + i.KE18 + '\n**AP 19**: ' + i.KE19 + '\n**AP 20**: ' + i.KE20 + '\n**AP 21**: ' + i.KE21 + '\n**AP 22**: ' + i.KE22 + '\n**AP 23**: ' + i.KE23 + '**\nAP 24**: ' + i.KE24 + '\n**AP 25**: ' + i.KE25 + '\n**AP 26**: ' + i.KE26 + '\n**AP 27**: ' + i.KE27 + '\n**AP 28**: ' + i.KE28 + '\n**AP 29**: ' + i.KE29 + '\n**AP 30**: ' + i.KE30, true).addField('​', '**HEAT 1**: ' + i.AP1 + '**\nHEAT 2**: ' + i.AP2 + '**\nHEAT 3**: ' + i.AP3 + '\n**HEAT 4**: ' + i.AP4 + '**\nHEAT 5**: ' + i.AP5 + '\n**HEAT 6**: ' + i.AP6 + '\n**HEAT 7**: ' + i.AP7 + '\n**HEAT 8**: ' + i.AP8 + '\n**HEAT 9**: ' + i.AP9 + '**\nHEAT 10**: ' + i.AP10 + '**\nHEAT 11**: ' + i.AP11 + '**\nHEAT 12**: ' + i.AP12 + '**\nHEAT 13**: ' + i.AP13 + '**\nHEAT 14**: ' + i.AP14 + '**\nHEAT 15**: ' + i.AP15 + '\n**HEAT16**: ' + i.AP16 + '**\nHEAT 17**: ' + i.AP17 + '\n**HEAT 18**: ' + i.AP18 + '\n**HEAT 19**: ' + i.AP19 + '\n**HEAT 20**: ' + i.AP20 + '\n**HEAT 21**: ' + i.AP21 + '\n**HEAT 22**: ' + i.AP22 + '\n**HEAT 23**: ' + i.AP23 + '**\nHEAT 24**: ' + i.AP24 + '\n**HEAT 25**: ' + i.AP25 + '\n**HEAT 26**: ' + i.AP26 + '\n**HEAT 27**: ' + i.AP27 + '\n**HEAT 28**: ' + i.AP28 + '\n**HEAT 29**: ' + i.AP29 + '\n**HEAT 30**: ' + i.AP30, true);
+		const embed = new Discord.MessageEmbed().setTitle(i.ArmorAP + ' Armor Damage Table').setColor('WHITE').addField('​', '**KE 1**: ' + i.KE1 + '**\nKE 2**: ' + i.KE2 + '**\nKE 3**: ' + i.KE3 + '\n**KE 4**: ' + i.KE4 + '**\nKE 5**: ' + i.KE5 + '\n**KE 6**: ' + i.KE6 + '\n**KE 7**: ' + i.KE7 + '\n**KE 8**: ' + i.KE8 + '\n**KE 9**: ' + i.KE9 + '**\nKE 10**: ' + i.KE10 + '**\nKE 11**: ' + i.KE11 + '**\nKE 12**: ' + i.KE12 + '**\nKE 13**: ' + i.KE13 + '**\nKE 14**: ' + i.KE14 + '**\nKE 15**: ' + i.KE15 + '**\nKE 16**: ' + i.KE16 + '**\nKE 17**: ' + i.KE17 + '**\nKE 18**: ' + i.KE18 + '\n**KE 19**: ' + i.KE19 + '\n**KE 20**: ' + i.KE20 + '\n**KE 21**: ' + i.KE21 + '\n**KE 22**: ' + i.KE22 + '\n**KE 23**: ' + i.KE23 + '**\nKE 24**: ' + i.KE24 + '\n**KE 25**: ' + i.KE25 + '\n**KE 26**: ' + i.KE26 + '\n**KE 27**: ' + i.KE27 + '\n**KE 28**: ' + i.KE28 + '\n**KE 29**: ' + i.KE29 + '\n**KE 30**: ' + i.KE30, true).addField('​', '**HEAT 1**: ' + i.AP1 + '**\nHEAT 2**: ' + i.AP2 + '**\nHEAT 3**: ' + i.AP3 + '\n**HEAT 4**: ' + i.AP4 + '**\nHEAT 5**: ' + i.AP5 + '\n**HEAT 6**: ' + i.AP6 + '\n**HEAT 7**: ' + i.AP7 + '\n**HEAT 8**: ' + i.AP8 + '\n**HEAT 9**: ' + i.AP9 + '**\nHEAT 10**: ' + i.AP10 + '**\nHEAT 11**: ' + i.AP11 + '**\nHEAT 12**: ' + i.AP12 + '**\nHEAT 13**: ' + i.AP13 + '**\nHEAT 14**: ' + i.AP14 + '**\nHEAT 15**: ' + i.AP15 + '\n**HEAT16**: ' + i.AP16 + '**\nHEAT 17**: ' + i.AP17 + '\n**HEAT 18**: ' + i.AP18 + '\n**HEAT 19**: ' + i.AP19 + '\n**HEAT 20**: ' + i.AP20 + '\n**HEAT 21**: ' + i.AP21 + '\n**HEAT 22**: ' + i.AP22 + '\n**HEAT 23**: ' + i.AP23 + '**\nHEAT 24**: ' + i.AP24 + '\n**HEAT 25**: ' + i.AP25 + '\n**HEAT 26**: ' + i.AP26 + '\n**HEAT 27**: ' + i.AP27 + '\n**HEAT 28**: ' + i.AP28 + '\n**HEAT 29**: ' + i.AP29 + '\n**HEAT 30**: ' + i.AP30, true).addField('​', embedString, true);
 		message.channel.send(embed);
+	});
+};
+
+module.exports.hetable = (args, message) => {
+	let title;
+	if(isNaN(args[0]) === true || args[0] > 20 || args[0] < 1) {
+		message.reply('Please use a valid HE value between 1 and 20').catch(err => {
+			console.log(err);
+		});
+		return;
+	}
+	args[0] = (args[0].replace(/[^\d]/g, ''));
+
+	const embed = new Discord.MessageEmbed().setTitle(args[0] + ' HE Damage table').setColor('GOLD');
+
+	he1DamageTable = [1, 1, 0.4, 0.3, 0.2, 0.15, 0.1, 0.1, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01];
+
+	embedString = '';
+	he1DamageTable.forEach((value, index) => {
+		embedString += '\n**' + index +' AV**: ' + (value*args[0]).toFixed(2).toString();
+	});
+
+	embed.addField("HE", embedString, true);
+	message.channel.send(embed).catch(err => {
+		console.log(err);
 	});
 };
 

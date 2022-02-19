@@ -44,6 +44,7 @@ module.exports.formatting = (i, show_img = false) => {
 		'Czechoslavakia': ':flag_cz:',
 		'Soviet Union': '<:flag_su:838026756879024148>',
 		'Yugoslavia': '<:flag_yug:838030505794076692>',
+		'South Africa': '<:flag_prinsenvlag:894734990062014536>',
 		'Finland': ':flag_fi:',
 		'East Germany': '<:flag_gdr:838029564361703434>',
 		'China': ':flag_cn:',
@@ -208,7 +209,7 @@ module.exports.formatting = (i, show_img = false) => {
 	deck_id = side + i.DeckID
 	category = category + (' \n **Spec decks**: ' + i.Decks);
 	const embed = new Discord.MessageEmbed().setTitle(title).setColor(color).addField('**Price: **' + price, '\n**Strength**: ' + i.Strength).addField('**Category**', category).addField('**Movement**', movement).addField('**Availability**', availability);
-	if(show_img === true) {
+	if(show_img === true && i.MotherCountry != 'South Africa') {
 		const attachments = new Discord.MessageAttachment('Pictures/picsb/' + deck_id + '.png')
 		embed.attachFiles(attachments);
 		embed.setThumbnail('attachment://' + deck_id + '.png');
@@ -283,6 +284,9 @@ module.exports.formatting = (i, show_img = false) => {
 			range_heli =   Number(range_ground) + 3*175;
 			range_planes = range_ground - 175;
 		}
+		// SA tag didnt work apparently
+		if(caliber === 'SemAct radar')
+			tags += '|SA';
 		
 		// the dude that made the final data csv bungled the helo range for autocannons
 		// previous fix messed up the SUP SPAAGs
@@ -330,6 +334,7 @@ module.exports.formatting = (i, show_img = false) => {
 			weapon += '**Supress Radius**: ' + Math.round(radius_splash_suppress) + '\n';
 		}
 		weapon += '**Aim Time:** ' + aim_time + 's' + '\n';
+		//weapon += '**Noise:** ' + noise/100  + '\n';
 		weapon += '**TrueROF:** ' + true_rof + ' r/m' + '\n';
 		if(automatic_gun_types.includes(type)) {
 			weapon += '**Salvo:** ' + shots_per_salvo + ' Shots' + '\n';

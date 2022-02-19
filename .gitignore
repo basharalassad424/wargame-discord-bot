@@ -6,3 +6,9 @@ package-lock.json
 *.log
 # Ignore .env
 .env
+convert-csv.py
+        final_data.csv
+        final_data.json
+ .eslintrc.json
+        .gitattributes
+

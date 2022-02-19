@@ -114,7 +114,8 @@ module.exports.decode = (deckCode) => {
 	if(Deck.iNation == "000111101000") {Deck.sNation = "NORAD";} else
 	if(Deck.iNation == "000111101001") {Deck.sNation = "DGC";} else
 	if(Deck.iNation == "000111101100") {Deck.sNation = "Blue";} else
-	if(Deck.iNation == "010000001100") {Deck.sNation = "West Germany";} else
+	if(Deck.iNation == "001000001001") {Deck.sNation = "South Africa";}else
+	if(Deck.iNation == "010000001100") {Deck.sNation = "East Germany";} else
 	if(Deck.iNation == "010000101100") {Deck.sNation = "USSR";} else
 	if(Deck.iNation == "010001001100") {Deck.sNation = "Poland";} else
 	if(Deck.iNation == "010001101100") {Deck.sNation = "Czech";} else
